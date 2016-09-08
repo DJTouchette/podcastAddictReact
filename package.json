@@ -47,7 +47,7 @@
     "test:safari": "",
     "test:ie": "",
     "coveralls": "cat ./coverage/lcov/lcov.info | coveralls",
-    "postinstall": "npm run build:clean",
+    "postinstall": "npm run build:clean"
   },
   "lint-staged": {
     "*.js": "lint:eslint",
