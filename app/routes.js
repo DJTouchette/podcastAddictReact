@@ -19,15 +19,59 @@ export default function createRoutes(store) {
   return [
     {
       path: '/',
-      name: 'home',
+      name: 'topTen',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/HomePage'),
+          System.import('containers/TopTen/reducer'),
+          System.import('containers/TopTen/sagas'),
+          System.import('containers/TopTen'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([component]) => {
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('topTen', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
+      path: '/top100',
+      name: 'topHundred',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/TopHundred/reducer'),
+          System.import('containers/TopHundred/sagas'),
+          System.import('containers/TopHundred'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('topHundred', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
+      path: '/search',
+      name: 'search',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          System.import('containers/Search/reducer'),
+          System.import('containers/Search/sagas'),
+          System.import('containers/Search'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('search', reducer.default);
+          injectSagas(sagas.default);
           renderRoute(component);
         });
 

@@ -21,6 +21,8 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import useScroll from 'react-router-scroll';
 import LanguageProvider from 'containers/LanguageProvider';
 import configureStore from './store';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 // Import i18n messages
 import { translationMessages } from './i18n';
@@ -51,10 +53,13 @@ const rootRoute = {
   childRoutes: createRoutes(store),
 };
 
+injectTapEventPlugin();
 
 const render = (translatedMessages) => {
   ReactDOM.render(
+
     <Provider store={store}>
+    <MuiThemeProvider>
       <LanguageProvider messages={translatedMessages}>
         <Router
           history={history}
@@ -66,6 +71,7 @@ const render = (translatedMessages) => {
           }
         />
       </LanguageProvider>
+    </MuiThemeProvider>
     </Provider>,
     document.getElementById('app')
   );

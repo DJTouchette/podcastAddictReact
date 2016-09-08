@@ -12,8 +12,8 @@
  */
 
 import React from 'react';
-
 import styles from './styles.css';
+import BottomNav from 'components/BottomNav';
 
 export default class App extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -24,6 +24,9 @@ export default class App extends React.Component { // eslint-disable-line react/
   render() {
     return (
       <div className={styles.container}>
+        <div className={styles.bottomNav}>
+          <BottomNav />
+        </div>
         {React.Children.toArray(this.props.children)}
       </div>
     );

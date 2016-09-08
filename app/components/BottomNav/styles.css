@@ -1,0 +1,6 @@
+.bottomNav { /* stylelint-disable */
+  z-index: 99;
+  height: 100%;
+  /*position: absolute;
+  width: 100%;*/
+}
