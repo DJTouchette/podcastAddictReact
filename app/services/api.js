@@ -131,9 +131,9 @@ function defaultHeaders() {
   let headers = new Headers();
   headers.append('Access-Control-Allow-Credentials', true);
   headers.append('Access-Control-Allow-Headers','x-requested-with');
+  headers.append('Access-Control-Allow-Origin', '*');
   headers.append('X-Requested-With','XMLHttpRequest');
   headers.append('Origin', 'http://localhost:62102');
-  headers.append('Access-Control-Allow-Origin', true);
   headers.append('Access-Control-Allow-Methods', 'GET, POST, PUT');
 
   return headers;
@@ -254,7 +254,7 @@ export function apiLogin(email, password) {
 export function apiFetch (opts) {
   const request = new Promise(function (resolve, reject) {
     const xhr = new XMLHttpRequest();
-    xhr.open(opts.method, opts.url, true);
+    xhr.open(opts.method, opts.url, false);
     xhr.onload = function () {
       if (this.status >= 200 && this.status < 300) {
         resolve(xhr.response);
@@ -277,7 +277,7 @@ export function apiFetch (opts) {
       });
     }
     const params = opts.params;
-    xhr.withCredentials = true;
+    xhr.withCredentials = false;
     xhr.send(params);
   }).then( (hello) => {
     return hello;
@@ -298,27 +298,28 @@ export function apiGet(path) {
   // Form data object
   const init = optsGet(headers, url);
   const json = apiFetch(init);
+
   return json;
 }
 
   export function apiGetFetch(path) {
-  const headers = defaultHeaders();
-  const url = path;
-  // Form data object
-  const init = {
-    method: 'GET',
-    headers: headers,
-    mode: 'cors'
-  }
-  const json = fetch(url, init)
-    .then((response) => {
-      return response.json()
-        .then((json) => {
-          return json;
-      })
-    });
+    const headers = defaultHeaders();
+    const url = path;
+    // Form data object
+    const init = {
+      method: 'GET',
+      headers: headers,
+      mode: 'cors',
+    }
+    const json = fetch(url, init)
+      .then((response) => {
+        return response.json()
+          .then((json) => {
+            return json;
+        })
+      });
 
-  return json;
+    return json;
 }
 
 

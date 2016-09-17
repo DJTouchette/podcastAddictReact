@@ -1,7 +1,8 @@
 import { take, call, put, select } from 'redux-saga/effects';
 import { ACTIONS } from './constants';
 import { addSearch } from './actions';
-import { apiGetFetch } from 'services/api';
+import { apiGetFetch, apiGet } from 'services/api';
+const fetchJsonp = require('fetch-jsonp');
 
 export function* getSearch() {
   while(true) {
@@ -13,7 +14,18 @@ export function* getSearch() {
       }
       const searchTerm = yield info.term.replace(' ', '+');
       const requestUrl = yield ['https://itunes.apple.com/search?term=', searchTerm,'&country=ca&entity=podcast'].join('');
-      const response = yield call(apiGetFetch, requestUrl);
+      const response = yield fetchJsonp(requestUrl)
+        .then(function(res) {
+          console.log(res);
+          return res.json();
+        }).catch(function(ex) {
+          console.log('parsing failed', ex)
+        });
+        console.log(response);
+      // const response = yield call(apiGet, requestUrl);
+      // console.log(response);
+      // const parsedJson = yield JSON.parse(response);
+      // console.log(parsedJson);
       yield put(addSearch(response.results));
     }
     catch (err) {
