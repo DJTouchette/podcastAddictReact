@@ -14,14 +14,26 @@ import SearchStream from 'components/SearchStream';
 import NoResults from 'components/NoResults';
 import Loading from 'components/Loading';
 
+const ENTER_CODE = 13;
+
 export class Search extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   constructor(props) {
     super(props);
   }
 
-  componentDidMount() {
+  componentWillMount() {
+    window.addEventListener('keydown', this.onEnter.bind(this), false);
+  }
 
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.onEnter.bind(this), false);
+  }
+
+  onEnter() {
+    if (event.keyCode == ENTER_CODE) {
+      this.handleSubmit();
+    }
   }
 
   handleSubmit() {

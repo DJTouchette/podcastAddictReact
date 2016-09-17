@@ -16,7 +16,7 @@ function SearchForm(props) {
 
         <div className="row">
           <div className={`input-field col s12 m6 offset-m3 ${styles.inputColor}`}>
-            <input value={props.formValue} onChange={props.handleForm.bind(this)} id="icon_prefix" type="text" />
+            <input value={props.formValue} placeholder='Enter any keywords you like' onChange={props.handleForm.bind(this)} id="icon_prefix" type="text" />
             <label htmlFor="icon_prefix2"></label>
           </div>
         </div>

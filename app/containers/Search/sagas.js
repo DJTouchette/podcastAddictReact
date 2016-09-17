@@ -19,13 +19,8 @@ export function* getSearch() {
           console.log(res);
           return res.json();
         }).catch(function(ex) {
-          console.log('parsing failed', ex)
+          console.log('parsing failed', ex);
         });
-        console.log(response);
-      // const response = yield call(apiGet, requestUrl);
-      // console.log(response);
-      // const parsedJson = yield JSON.parse(response);
-      // console.log(parsedJson);
       yield put(addSearch(response.results));
     }
     catch (err) {
